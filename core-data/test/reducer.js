@@ -6,7 +6,7 @@ import deepFreeze from 'deep-freeze';
 /**
  * Internal dependencies
  */
-import { terms, entities } from '../reducer';
+import { terms, entities, posts } from '../reducer';
 
 describe( 'terms()', () => {
 	it( 'returns an empty object by default', () => {
@@ -89,6 +89,27 @@ describe( 'entities', () => {
 				b: { slug: 'b', title: 'beach' },
 				s: { slug: 's', title: 'sun' },
 			},
+		} );
+	} );
+} );
+
+describe( 'posts', () => {
+	it( 'returns an empty object by default', () => {
+		const state = posts( undefined, {} );
+
+		expect( state ).toEqual( {} );
+	} );
+
+	it( 'returns with received posts by ID', () => {
+		const originalState = deepFreeze( {} );
+		const state = posts( originalState, {
+			type: 'RECEIVE_POSTS',
+			posts: [ { id: 10, title: 'beach' }, { id: 20, title: 'sun' } ],
+		} );
+
+		expect( state ).toEqual( {
+			10: { id: 10, title: 'beach' },
+			20: { id: 20, title: 'sun' },
 		} );
 	} );
 } );

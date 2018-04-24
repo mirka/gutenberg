@@ -35,15 +35,17 @@ window.jQuery( document ).on( 'heartbeat-tick', ( event, response ) => {
  * an unhandled error occurs, replacing previously mounted editor element using
  * an initial state from prior to the crash.
  *
+ * @param {Object}  postId   ID of the post to edit.
  * @param {Element} target   DOM node in which editor is rendered.
  * @param {?Object} settings Editor settings object.
+ * @param {Object}  defaultPost   Post initilization object
  */
-export function reinitializeEditor( target, settings ) {
+export function reinitializeEditor( postId, target, settings, defaultPost ) {
 	unmountComponentAtNode( target );
-	const reboot = reinitializeEditor.bind( null, target, settings );
+	const reboot = reinitializeEditor.bind( null, postId, target, settings, defaultPost );
 
 	render(
-		<Editor settings={ settings } onError={ reboot } recovery />,
+		<Editor settings={ settings } onError={ reboot } postId={ postId } defaultPost={ defaultPost } recovery />,
 		target
 	);
 }
@@ -54,13 +56,14 @@ export function reinitializeEditor( target, settings ) {
  * The return value of this function is not necessary if we change where we
  * call initializeEditor(). This is due to metaBox timing.
  *
- * @param {string}  id       Unique identifier for editor instance.
- * @param {Object}  post     API entity for post to edit.
- * @param {?Object} settings Editor settings object.
+ * @param {string}  id            Unique identifier for editor instance.
+ * @param {Object}  postId        ID of the post to edit.
+ * @param {?Object} settings      Editor settings object.
+ * @param {Object}  defaultPost   Post initilization object
  *
  * @return {Object} Editor interface.
  */
-export function initializeEditor( id, post, settings ) {
+export function initializeEditor( id, postId, settings, defaultPost ) {
 	if ( 'production' !== process.env.NODE_ENV ) {
 		// Remove with 3.0 release.
 		window.console.info(
@@ -86,12 +89,12 @@ export function initializeEditor( id, post, settings ) {
 	return new Promise( ( resolve ) => {
 		domReady( () => {
 			const target = document.getElementById( id );
-			const reboot = reinitializeEditor.bind( null, target, settings );
+			const reboot = reinitializeEditor.bind( null, postId, target, settings, defaultPost );
 
 			registerCoreBlocks();
 
 			render(
-				<Editor settings={ migratedSettings || settings } onError={ reboot } post={ post } />,
+				<Editor settings={ migratedSettings || settings } onError={ reboot } postId={ postId } defaultPost={ defaultPost } />,
 				target
 			);
 

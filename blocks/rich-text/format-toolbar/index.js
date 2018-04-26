@@ -9,7 +9,7 @@ import {
 	ToggleControl,
 	Toolbar,
 	withSpokenMessages,
-	OpensInNewTabMessage,
+	ExternalLink,
 } from '@wordpress/components';
 import { keycodes } from '@wordpress/utils';
 
@@ -226,14 +226,13 @@ class FormatToolbar extends Component {
 									onKeyPress={ stopKeyPropagation }
 								>
 									<div className="blocks-format-toolbar__link-modal-line">
-										<a
+										<ExternalLink
 											className="blocks-format-toolbar__link-value"
 											href={ formats.link.value }
-											target="_blank"
+											icon={ null }
 										>
 											{ formats.link.value && filterURLForDisplay( decodeURI( formats.link.value ) ) }
-											<OpensInNewTabMessage />
-										</a>
+										</ExternalLink>
 										<IconButton icon="edit" label={ __( 'Edit' ) } onClick={ this.editLink } />
 										<IconButton
 											className="blocks-format-toolbar__link-settings-toggle"

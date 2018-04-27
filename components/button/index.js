@@ -37,6 +37,7 @@ class Button extends Component {
 		const {
 			href,
 			target,
+			rel,
 			isPrimary,
 			isLarge,
 			isSmall,
@@ -56,7 +57,7 @@ class Button extends Component {
 		} );
 
 		const tag = href !== undefined && ! disabled ? 'a' : 'button';
-		const tagProps = tag === 'a' ? { href, target } : { type: 'button', disabled };
+		const tagProps = tag === 'a' ? { href, target, rel } : { type: 'button', disabled };
 
 		delete additionalProps.focus;
 

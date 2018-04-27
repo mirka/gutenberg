@@ -21,7 +21,8 @@
 		cursor: pointer;
 	}
 
-	&:focus {
+	// Use this focus style only for buttons: links already have their own focus style.
+	&:not( a ):focus {
 		@include button-style__focus-active;
 	}
 

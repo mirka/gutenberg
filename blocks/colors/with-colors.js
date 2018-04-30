@@ -7,12 +7,12 @@ import { get } from 'lodash';
  * WordPress dependencies
  */
 import { createHigherOrderComponent } from '@wordpress/element';
+import { withSelect } from '@wordpress/data';
 
 /**
  * Internal dependencies
  */
 import { getColorValue, getColorClass, setColorValue } from './utils';
-import { withEditorSettings } from '../editor-settings';
 
 /**
  * Higher-order component, which handles color logic for class generation
@@ -23,8 +23,9 @@ import { withEditorSettings } from '../editor-settings';
  * @return {Component} Component with a new colors prop.
  */
 export default createHigherOrderComponent(
-	withEditorSettings(
-		( settings, props ) => {
+	withSelect(
+		( select, props ) => {
+			const settings = select( 'core/editor' ).getEditorSettings();
 			const colors = get( settings, [ 'colors' ], [] );
 			return {
 				initializeColor: ( { colorContext, colorAttribute, customColorAttribute } ) => ( {

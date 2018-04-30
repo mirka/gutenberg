@@ -9,7 +9,6 @@ import { first, last } from 'lodash';
 import { Component, Fragment, compose } from '@wordpress/element';
 import { KeyboardShortcuts } from '@wordpress/components';
 import { withSelect, withDispatch } from '@wordpress/data';
-import { withEditorSettings } from '@wordpress/blocks';
 
 class EditorGlobalKeyboardShortcuts extends Component {
 	constructor() {
@@ -94,12 +93,15 @@ export default compose( [
 			getBlockOrder,
 			getMultiSelectedBlockUids,
 			hasMultiSelection,
+			getEditorSettings,
 		} = select( 'core/editor' );
+		const { templateLock } = getEditorSettings();
 
 		return {
 			uids: getBlockOrder(),
 			multiSelectedBlockUids: getMultiSelectedBlockUids(),
 			hasMultiSelection: hasMultiSelection(),
+			isLocked: !! templateLock,
 		};
 	} ),
 	withDispatch( ( dispatch ) => {
@@ -119,13 +121,6 @@ export default compose( [
 			onUndo: undo,
 			onRemove: removeBlocks,
 			onSave: autosave,
-		};
-	} ),
-	withEditorSettings( ( settings ) => {
-		const { templateLock } = settings;
-
-		return {
-			isLocked: !! templateLock,
 		};
 	} ),
 ] )( EditorGlobalKeyboardShortcuts );

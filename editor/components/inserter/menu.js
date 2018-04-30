@@ -24,7 +24,7 @@ import {
 	withInstanceId,
 	withSpokenMessages,
 } from '@wordpress/components';
-import { getCategories, isSharedBlock, withEditorSettings } from '@wordpress/blocks';
+import { getCategories, isSharedBlock } from '@wordpress/blocks';
 import { keycodes } from '@wordpress/utils';
 import { withSelect, withDispatch } from '@wordpress/data';
 
@@ -336,15 +336,9 @@ export class InserterMenu extends Component {
 }
 
 export default compose(
-	withEditorSettings( ( settings ) => {
-		const { allowedBlockTypes } = settings;
-
-		return {
-			allowedBlockTypes,
-		};
-	} ),
-	withSelect( ( select, { allowedBlockTypes } ) => {
-		const { getInserterItems, getFrecentInserterItems } = select( 'core/editor' );
+	withSelect( ( select ) => {
+		const { getInserterItems, getFrecentInserterItems, getEditorSettings } = select( 'core/editor' );
+		const { allowedBlockTypes } = getEditorSettings();
 		return {
 			items: getInserterItems( allowedBlockTypes ),
 			frecentItems: getFrecentInserterItems( allowedBlockTypes ),

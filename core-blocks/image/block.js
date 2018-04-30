@@ -15,7 +15,7 @@ import {
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { Component, compose, Fragment } from '@wordpress/element';
+import { Component, Fragment } from '@wordpress/element';
 import { getBlobByURL, revokeBlobURL, viewPort } from '@wordpress/utils';
 import {
 	Button,
@@ -37,7 +37,6 @@ import {
 	MediaUpload,
 	BlockAlignmentToolbar,
 	UrlInputButton,
-	withEditorSettings,
 } from '@wordpress/blocks';
 
 /**
@@ -387,14 +386,12 @@ class ImageBlock extends Component {
 	}
 }
 
-export default compose( [
-	withEditorSettings(),
-	withSelect( ( select, props ) => {
-		const { getMedia } = select( 'core' );
-		const { id } = props.attributes;
+export default withSelect( ( select, props ) => {
+	const { getMedia } = select( 'core' );
+	const { id } = props.attributes;
 
-		return {
-			image: id ? getMedia( id ) : null,
-		};
-	} ),
-] )( ImageBlock );
+	return {
+		settings: select( 'core/editor' ).getEditorSettings(),
+		image: id ? getMedia( id ) : null,
+	};
+} )( ImageBlock );

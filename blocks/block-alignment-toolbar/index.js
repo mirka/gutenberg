@@ -3,11 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { Toolbar } from '@wordpress/components';
-
-/**
- * Internal dependencies
- */
-import { withEditorSettings } from '../editor-settings';
+import { withSelect } from '@wordpress/data';
 
 const BLOCK_ALIGNMENTS_CONTROLS = {
 	left: {
@@ -59,8 +55,8 @@ export function BlockAlignmentToolbar( { value, onChange, controls = DEFAULT_CON
 	);
 }
 
-export default withEditorSettings(
-	( settings ) => ( {
-		wideControlsEnabled: settings.alignWide,
+export default withSelect(
+	( select ) => ( {
+		wideControlsEnabled: select( 'core/editor' ).getEditorSettings().alignWide,
 	} )
 )( BlockAlignmentToolbar );

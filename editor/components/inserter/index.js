@@ -8,7 +8,7 @@ import { isEmpty } from 'lodash';
  */
 import { __ } from '@wordpress/i18n';
 import { Dropdown, IconButton } from '@wordpress/components';
-import { createBlock, isUnmodifiedDefaultBlock, withEditorSettings } from '@wordpress/blocks';
+import { createBlock, isUnmodifiedDefaultBlock } from '@wordpress/blocks';
 import { Component, compose } from '@wordpress/element';
 import { withSelect, withDispatch } from '@wordpress/data';
 
@@ -87,11 +87,22 @@ class Inserter extends Component {
 }
 
 export default compose( [
-	withSelect( ( select ) => ( {
-		title: select( 'core/editor' ).getEditedPostAttribute( 'title' ),
-		insertionPoint: select( 'core/editor' ).getBlockInsertionPoint(),
-		selectedBlock: select( 'core/editor' ).getSelectedBlock(),
-	} ) ),
+	withSelect( ( select ) => {
+		const {
+			getEditedPostAttribute,
+			getBlockInsertionPoint,
+			getSelectedBlock,
+			getEditorSettings,
+		} = select( 'core/editor' );
+		const { allowedBlockTypes, templateLock } = getEditorSettings();
+		return {
+			title: getEditedPostAttribute( 'title' ),
+			insertionPoint: getBlockInsertionPoint(),
+			selectedBlock: getSelectedBlock(),
+			hasSupportedBlocks: true === allowedBlockTypes || ! isEmpty( allowedBlockTypes ),
+			isLocked: !! templateLock,
+		};
+	} ),
 	withDispatch( ( dispatch, ownProps ) => ( {
 		showInsertionPoint: dispatch( 'core/editor' ).showInsertionPoint,
 		hideInsertionPoint: dispatch( 'core/editor' ).hideInsertionPoint,
@@ -106,12 +117,4 @@ export default compose( [
 			return dispatch( 'core/editor' ).insertBlock( insertedBlock, index, rootUID );
 		},
 	} ) ),
-	withEditorSettings( ( settings ) => {
-		const { allowedBlockTypes, templateLock } = settings;
-
-		return {
-			hasSupportedBlocks: true === allowedBlockTypes || ! isEmpty( allowedBlockTypes ),
-			isLocked: !! templateLock,
-		};
-	} ),
 ] )( Inserter );

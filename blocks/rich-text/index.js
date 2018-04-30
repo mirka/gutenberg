@@ -375,15 +375,33 @@ export class RichText extends Component {
 	 * Handles any case where the content of the tinyMCE instance has changed.
 	 */
 
-	onChange() {
+	onChange( options = {} ) {
+		const { checkEquality = false } = options;
+
 		this.savedContent = this.getContent();
+
+		if ( checkEquality && isEqual( this.props.value, this.savedContent ) ) {
+			return;
+		}
+
 		this.isEmpty = isEmpty( this.savedContent, this.props.format );
 		this.props.onChange( this.savedContent );
 	}
 
-	onCreateUndoLevel() {
-		// Always ensure the content is up-to-date.
-		this.onChange();
+	onCreateUndoLevel( event ) {
+		// TinyMCE fires a `change` event when the first letter in an instance
+		// is typed. This should not create a history record in Gutenberg.
+		// https://github.com/tinymce/tinymce/blob/4.7.11/src/core/main/ts/api/UndoManager.ts#L116-L125
+		// In other cases TinyMCE won't fire a `change` with at least a previous
+		// record present, so this is a reliable check.
+		// https://github.com/tinymce/tinymce/blob/4.7.11/src/core/main/ts/api/UndoManager.ts#L272-L275
+		if ( event && event.lastLevel === null ) {
+			return;
+		}
+
+		// Always ensure the content is up-to-date, but avoid dispatching an
+		// action if it is (by way of input).
+		this.onChange( { checkEquality: true } );
 		this.context.onCreateUndoLevel();
 	}
 

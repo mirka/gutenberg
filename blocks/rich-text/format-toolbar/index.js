@@ -229,7 +229,7 @@ class FormatToolbar extends Component {
 										<ExternalLink
 											className="blocks-format-toolbar__link-value"
 											href={ formats.link.value }
-											icon={ null }
+											icon={ false }
 										>
 											{ formats.link.value && filterURLForDisplay( decodeURI( formats.link.value ) ) }
 										</ExternalLink>

@@ -77,7 +77,7 @@ class PostPermalink extends Component {
 					<ExternalLink
 						className="editor-post-permalink__link"
 						href={ ! isPublished ? previewLink : samplePermalink }
-						icon={ null }
+						icon={ false }
 					>
 						{ decodeURI( samplePermalink ) }
 						&lrm;
@@ -107,7 +107,7 @@ class PostPermalink extends Component {
 						isLarge
 						href={ getWPAdminURL( 'options-permalink.php' ) }
 						onClick={ this.addVisibilityCheck }
-						icon={ null }
+						icon={ false }
 						rel={ null }
 					>
 						{ __( 'Change Permalinks' ) }

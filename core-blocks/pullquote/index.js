@@ -13,7 +13,7 @@ import {
 	BlockControls,
 	BlockAlignmentToolbar,
 	RichText,
-} from '@wordpress/blocks';
+} from '@wordpress/editor';
 
 /**
  * Internal dependencies

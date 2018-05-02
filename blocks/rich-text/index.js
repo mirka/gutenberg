@@ -912,10 +912,10 @@ const RichTextContainer = compose( [
 		// Ensures that only one RichText component can be focused.
 		return {
 			isSelected: context.isSelected && context.focusedElement === ownProps.instanceId,
-			onSetup: () => {
+			onSetup() {
 				context.initFocusedElement( ownProps.instanceId );
 			},
-			onFocus: () => {
+			onFocus() {
 				context.setFocusedElement( ownProps.instanceId );
 			},
 		};

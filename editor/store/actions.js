@@ -666,3 +666,12 @@ export function insertDefaultBlock( attributes, rootUID, index ) {
 		isProvisional: true,
 	};
 }
+
+/**
+ * 
+ */
+export function dismissNewUserGuide() {
+	return {
+		type: 'DISMISS_NEW_USER_GUIDE',
+	};
+}

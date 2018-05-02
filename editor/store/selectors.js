@@ -1568,3 +1568,11 @@ export function getPermalinkParts( state ) {
 		suffix,
 	};
 }
+
+/**
+ * 
+ * @param {*} state 
+ */
+export function hasDismissedNewUserGuide( state ) {
+	return !! state.preferences.hasDismissedNewUserGuide;
+}

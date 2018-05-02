@@ -836,6 +836,12 @@ export function preferences( state = PREFERENCES_DEFAULTS, action ) {
 				...state,
 				insertUsage: omitBy( state.insertUsage, ( { insert } ) => insert.ref === action.id ),
 			};
+
+		case 'DISMISS_NEW_USER_GUIDE':
+			return {
+				...state,
+				hasDismissedNewUserGuide: true,
+			};
 	}
 
 	return state;

@@ -6,6 +6,7 @@ export { default as DocumentTitle } from './document-title';
 export { default as EditorGlobalKeyboardShortcuts } from './editor-global-keyboard-shortcuts';
 export { default as EditorHistoryRedo } from './editor-history/redo';
 export { default as EditorHistoryUndo } from './editor-history/undo';
+export { default as EditorNewUserGuide } from './editor-new-user-guide';
 export { default as EditorNotices } from './editor-notices';
 export { default as PageAttributesCheck } from './page-attributes/check';
 export { default as PageAttributesOrder } from './page-attributes/order';

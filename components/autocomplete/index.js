@@ -226,15 +226,25 @@ export class Autocomplete extends Component {
 	}
 
 	insertCompletion( range, replacement ) {
-		const container = document.createElement( 'div' );
-		container.innerHTML = renderToString( replacement );
-		while ( container.firstChild ) {
-			const child = container.firstChild;
-			container.removeChild( child );
-			range.insertNode( child );
-			range.setStartAfter( child );
-		}
+		// Wrap completions so we can treat them as tokens.
+		const tokenWrapper = document.createElement( 'span' );
+		tokenWrapper.classList.add( 'autocomplete-token' );
+
+		// Make tokens non-editable so they may be deleted but not modified.
+		tokenWrapper.contentEditable = false;
+
+		tokenWrapper.innerHTML = renderToString( replacement );
+
+		range.insertNode( tokenWrapper );
+		range.setStartAfter( tokenWrapper );
 		range.deleteContents();
+
+		const selection = window.getSelection();
+		selection.removeAllRanges();
+
+		const newCursorPosition = document.createRange();
+		newCursorPosition.setStartAfter( tokenWrapper );
+		selection.addRange( newCursorPosition );
 	}
 
 	select( option ) {

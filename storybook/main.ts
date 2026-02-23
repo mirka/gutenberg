@@ -122,6 +122,8 @@ const config: StorybookConfig = {
 	},
 	viteFinal: async ( viteConfig ) => {
 		return mergeConfig( viteConfig, {
+			// Storybook's Vite builder defaults this to the repo root (process.cwd()), but we want this workspace to be the root for isolated module resolution.
+			root: import.meta.dirname,
 			plugins: [
 				dsTokenFallbacksJs(),
 				react( {
@@ -220,6 +222,27 @@ const config: StorybookConfig = {
 				'globalThis.SCRIPT_DEBUG': JSON.stringify(
 					NODE_ENV === 'development'
 				),
+			},
+			resolve: {
+				alias: {
+					/*
+					 * `jsxImportSource` injects `@emotion/react` into every JSX
+					 * file, including stories in packages that don't depend on
+					 * it (e.g. block-editor) and can't resolve it under the
+					 * isolated dependency layout. Alias it to this workspace's
+					 * copy — the one all consumers already resolve to.
+					 */
+					'@emotion/react': getAbsolutePath( '@emotion/react' ),
+				},
+				/*
+				 * Resolve Storybook packages from this workspace.
+				 */
+				dedupe: [
+					'storybook',
+					'@storybook/addon-a11y',
+					'@storybook/addon-docs',
+					'@storybook/icons',
+				],
 			},
 			css: {
 				postcss: {

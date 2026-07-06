@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Enhancements
+
+-   Limit concurrent `esbuild` build jobs by default and add `--concurrency`
+    / `WP_BUILD_CONCURRENCY` overrides for `wp-build`.
+
 ## 0.19.0 (2026-07-14)
 
 ### Enhancements

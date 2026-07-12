@@ -9,11 +9,24 @@
 	}
 }
 
-// To hide the horizontal scrollbar and show the drag handle on the
-// left and right of the container.
-.editor-resizable-editor.is-resizable {
-	overflow: visible;
-	margin: 0 auto;
+.editor-resizable-editor {
+	// To hide the horizontal scrollbar and show the drag handle on the
+	// left and right of the container.
+	&.is-resizable {
+		overflow: visible;
+		margin: 0 auto;
+	}
+	// Frames the canvas whenever style changes are scoped to the current viewport.
+	&.is-responsive-editing {
+		outline: $border-width-focus-fallback solid var(--wp-block-synced-color);
+	}
+}
+
+.editor-resizable-editor__responsive-editing-control {
+	position: absolute;
+	bottom: calc(100% + #{$grid-unit-10});
+	left: 0;
+	right: 0;
 }
 
 .editor-resizable-editor__resize-handle {

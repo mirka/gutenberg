@@ -7,6 +7,10 @@
 -   Widgets: carry a widget's declarative `actions` from `widget.json` into
     the generated PHP registry ([#80363](https://github.com/WordPress/gutenberg/pull/80363)).
 
+### Bug Fixes
+
+-   Ignore generated `src/worker-code.ts` in watch mode to stop rebuild loops for worker packages like `@wordpress/vips`.
+
 ## 0.19.0 (2026-07-14)
 
 ### Enhancements

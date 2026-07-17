@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Breaking Changes
+
+-   `IconButton`: Require shortcut metadata to include a human-readable description and render that description for assistive technologies. ([#80402](https://github.com/WordPress/gutenberg/pull/80402))
+
 ### Enhancements
 
 -   `Popover`: Default the popup's portal container to the `@wordpress/ui` compat overlay slot when present, so popovers stack reliably above other overlays in mixed-library compositions. A caller-supplied `Popover.Portal` `container` prop continues to take precedence ([#80278](https://github.com/WordPress/gutenberg/pull/80278)).

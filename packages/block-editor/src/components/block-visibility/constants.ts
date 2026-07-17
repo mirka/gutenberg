@@ -1,8 +1,18 @@
 /**
+ * External dependencies
+ */
+import type { ReactElement } from 'react';
+
+/**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
 import { desktop, tablet, mobile } from '@wordpress/icons';
+
+/**
+ * The viewports for which block visibility can be controlled.
+ */
+export type BlockVisibilityViewport = 'desktop' | 'tablet' | 'mobile';
 
 /**
  * The choices for the block visibility.
@@ -29,7 +39,10 @@ export const BLOCK_VISIBILITY_VIEWPORTS = {
 		icon: mobile,
 		key: 'mobile',
 	},
-};
+} satisfies Record<
+	BlockVisibilityViewport,
+	{ label: string; icon: ReactElement; key: BlockVisibilityViewport }
+>;
 
 export const BLOCK_VISIBILITY_VIEWPORT_ENTRIES = Object.entries(
 	BLOCK_VISIBILITY_VIEWPORTS

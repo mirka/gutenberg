@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### New Features
+
+-   Add a responsive `Breadcrumb` navigation component. ([#80425](https://github.com/WordPress/gutenberg/pull/80425))
+
 ### Enhancements
 
 -   `Menu`: Add shortcut display and accessibility metadata support. ([#79560](https://github.com/WordPress/gutenberg/pull/79560))

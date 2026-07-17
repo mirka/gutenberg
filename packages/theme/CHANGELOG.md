@@ -4,7 +4,7 @@
 
 ### Enhancements
 
--   Add a Lightning CSS visitor plugin that injects design system token fallbacks, available as `@wordpress/theme/lightningcss-plugins/lightningcss-ds-token-fallbacks`, with an optional peer range of `>=1.19.0 <2.0.0`.
+-   Add a Lightning CSS visitor plugin that injects design system token fallbacks, available as `@wordpress/theme/lightningcss-plugins/lightningcss-ds-token-fallbacks`, with an optional peer range of `>=1.19.0 <2.0.0` ([#80401](https://github.com/WordPress/gutenberg/pull/80401)).
 -   Widen optional peer dependency ranges so projects on newer tooling can install without peer resolution conflicts: Vite `^7 || ^8`, Stylelint `^16 || ^17`, and esbuild `>=0.27.2 <1.0.0` ([#80267](https://github.com/WordPress/gutenberg/pull/80267)).
 
 ### Documentation

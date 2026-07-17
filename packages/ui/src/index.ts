@@ -1,4 +1,5 @@
 export * from './badge';
+export * as Breadcrumb from './breadcrumb';
 export * from './button';
 export * as Card from './card';
 export * as Collapsible from './collapsible';

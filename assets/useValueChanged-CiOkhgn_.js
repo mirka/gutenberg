@@ -1,0 +1,1 @@
+import{r as e}from"./iframe-C2-3umRf.js";import{u as r}from"./useIsoLayoutEffect-BWAPUicx.js";import{u}from"./useStableCallback-DgXbuMEL.js";function useValueChanged(s,a){const t=e.useRef(s),o=u(a);r(()=>{t.current!==s&&o(t.current)},[s,o]),r(()=>{t.current=s},[s])}export{useValueChanged as u};
